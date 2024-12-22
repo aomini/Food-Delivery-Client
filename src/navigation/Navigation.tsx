@@ -1,11 +1,19 @@
-import {View, Text} from 'react-native';
 import React from 'react';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {NavigationContainer} from '@react-navigation/native';
+import SplashScreen from '@/features/auth/splash-screen';
 
-const Navigation = () => {
+const RootStack = createNativeStackNavigator();
+
+const Navigation: React.FC = () => {
   return (
-    <View>
-      <Text>Navigation</Text>
-    </View>
+    <NavigationContainer>
+      <RootStack.Navigator
+        initialRouteName="splash-screen"
+        screenOptions={{headerShown: false}}>
+        <RootStack.Screen name="splash-screen" component={SplashScreen} />
+      </RootStack.Navigator>
+    </NavigationContainer>
   );
 };
 
