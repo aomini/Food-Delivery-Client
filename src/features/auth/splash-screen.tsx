@@ -4,6 +4,10 @@ import {Colors} from '@/utils/Constants';
 import {screenHeight, screenWidth} from '@/utils/Scaling';
 import Logo from '@/assets/images/splash_logo.jpeg';
 import Geolocation from '@react-native-community/geolocation';
+import {useAuthStore} from '@/state/auth-store';
+import {tokenStorage} from '@/state/storage';
+import {useNavigation} from '@react-navigation/native';
+import {resetAndNavigate} from '@/utils/navigation-utils';
 
 Geolocation.setRNConfiguration({
   skipPermissionRequests: false,
@@ -13,10 +17,23 @@ Geolocation.setRNConfiguration({
 });
 
 const SplashScreen: React.FC = () => {
+  const {user, setUser} = useAuthStore();
+  const navigation = useNavigation();
+
+  const tokenCheck = async () => {
+    const accessToken = await tokenStorage.getString('acessToken');
+    const refreshToken = await tokenStorage.getString('refreshToken');
+    if (accessToken) {
+    }
+    resetAndNavigate('customer-login');
+    return false;
+  };
+
   React.useEffect(() => {
     const fetchUserLocation = () => {
       try {
         Geolocation.requestAuthorization();
+        tokenCheck();
       } catch (err) {
         Alert.alert(
           'Error',
@@ -28,6 +45,7 @@ const SplashScreen: React.FC = () => {
     const timeout = setTimeout(fetchUserLocation, 1000);
     return () => clearTimeout(timeout);
   }, []);
+
   return (
     <View style={styles.container}>
       <Image source={Logo} style={styles.logo} />
