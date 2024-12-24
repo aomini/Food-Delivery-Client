@@ -68,6 +68,7 @@ const styles = StyleSheet.create({
 
   autoScroll: {
     position: 'absolute',
+    top: 0,
     zIndex: -2,
   },
   gridContainer: {
