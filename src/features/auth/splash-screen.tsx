@@ -21,9 +21,11 @@ const SplashScreen: React.FC = () => {
   const navigation = useNavigation();
 
   const tokenCheck = async () => {
-    const accessToken = await tokenStorage.getString('acessToken');
-    const refreshToken = await tokenStorage.getString('refreshToken');
+    console.log(user, '@@@');
+    const accessToken = await tokenStorage.getString('access_token');
+    const refreshToken = await tokenStorage.getString('refresh_token');
     if (accessToken) {
+      // return resetAndNavigate('product-dashboard');
     }
     resetAndNavigate('customer-login');
     return false;

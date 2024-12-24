@@ -1,9 +1,10 @@
 import {create} from 'zustand';
 import {persist, createJSONStorage} from 'zustand/middleware';
 import {mmkvStorage} from './storage';
+import {User} from '@/types/user.types';
 
 export type AuthStore = {
-  user: Record<string, any> | null;
+  user: User | null;
   setUser: (user: any) => void;
   setCurrentOrder: (order: any) => void;
   currentOrder: Record<string, any> | null;

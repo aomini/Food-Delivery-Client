@@ -24,6 +24,7 @@ import {Colors, Fonts, lightColors} from '@/utils/Constants';
 import CustomInput from '@/components/ui/custom-input';
 import CustomButton from '@/components/ui/custom-button';
 import {useKeyboardOffsetHeight} from '@/utils/useKeyboardOffsetHeight';
+import {customerLogin} from '@/services/auth-service';
 
 type SingleTypeOf<T extends any[]> = T extends (infer U)[] ? U : never;
 
@@ -80,6 +81,7 @@ const CustomerLogin = () => {
     Keyboard.dismiss();
     setLoading(true);
     try {
+      await customerLogin(phone);
       resetAndNavigate('product-dashboard');
     } catch (error) {
     } finally {
