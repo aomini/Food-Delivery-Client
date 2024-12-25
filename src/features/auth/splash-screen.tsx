@@ -1,13 +1,14 @@
 import React from 'react';
 import {View, StyleSheet, Image, Alert} from 'react-native';
+import {jwtDecode} from 'jwt-decode';
 import {Colors} from '@/utils/Constants';
 import {screenHeight, screenWidth} from '@/utils/Scaling';
 import Logo from '@/assets/images/splash_logo.jpeg';
 import Geolocation from '@react-native-community/geolocation';
 import {useAuthStore} from '@/state/auth-store';
 import {tokenStorage} from '@/state/storage';
-import {useNavigation} from '@react-navigation/native';
 import {resetAndNavigate} from '@/utils/navigation-utils';
+import {refetchUser, refreshAccessToken} from '@/services/auth-service';
 
 Geolocation.setRNConfiguration({
   skipPermissionRequests: false,
@@ -16,20 +17,39 @@ Geolocation.setRNConfiguration({
   locationProvider: 'auto',
 });
 
-const SplashScreen: React.FC = () => {
-  const {user, setUser} = useAuthStore();
-  const navigation = useNavigation();
+type DecodedToken = {
+  exp: number;
+};
 
-  const tokenCheck = async () => {
-    console.log(user, '@@@');
-    const accessToken = await tokenStorage.getString('access_token');
-    const refreshToken = await tokenStorage.getString('refresh_token');
+const SplashScreen: React.FC = () => {
+  const {user} = useAuthStore();
+
+  const tokenCheck = React.useCallback(async () => {
+    const accessToken = tokenStorage.getString('access_token');
+    const refreshToken = tokenStorage.getString('refresh_token');
     if (accessToken) {
-      // return resetAndNavigate('product-dashboard');
+      const decodedToken = jwtDecode<DecodedToken>(accessToken);
+      const decodedRefreshToken = jwtDecode<DecodedToken>(refreshToken || '');
+      const currentTime = Date.now() / 1000;
+      if (decodedRefreshToken.exp < currentTime) {
+        Alert.alert('Session expired', 'Please login again');
+        return resetAndNavigate('customer-login');
+      } else if (refreshToken && decodedToken.exp > currentTime) {
+        try {
+          await refreshAccessToken(refreshToken);
+          await refetchUser();
+        } catch (error: unknown) {
+          console.log(error);
+          return Alert.alert("Couldn't login you at the moment");
+        }
+      }
+      return resetAndNavigate(
+        user?.role === 'customer' ? 'product-dashboard' : 'delivery-dashboard',
+      );
     }
     resetAndNavigate('customer-login');
     return false;
-  };
+  }, [user?.role]);
 
   React.useEffect(() => {
     const fetchUserLocation = () => {
@@ -46,7 +66,7 @@ const SplashScreen: React.FC = () => {
 
     const timeout = setTimeout(fetchUserLocation, 1000);
     return () => clearTimeout(timeout);
-  }, []);
+  }, [tokenCheck]);
 
   return (
     <View style={styles.container}>
