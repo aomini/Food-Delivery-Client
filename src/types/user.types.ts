@@ -6,4 +6,5 @@ export type User<T = Customer | DeliveryPartner> = {
   isActive: boolean;
   phone: number;
   role: T;
+  address?: string;
 };
