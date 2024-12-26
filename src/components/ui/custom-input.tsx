@@ -2,7 +2,7 @@ import {View, StyleSheet, TextInputProps, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {Colors, Fonts} from '@/utils/Constants';
 import {RFValue} from 'react-native-responsive-fontsize';
-import {TextInput} from 'react-native-gesture-handler';
+import {TextInput} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 type CustomInputProps = {
@@ -24,6 +24,7 @@ const CustomInput = ({
         {...props}
         style={styles.inputContainer}
         placeholderTextColor="#ccc"
+        autoCapitalize="none"
       />
       <View style={styles.icon}>
         {Boolean(props.value?.length) && right && (

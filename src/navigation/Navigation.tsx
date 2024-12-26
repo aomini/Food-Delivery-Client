@@ -4,9 +4,9 @@ import {NavigationContainer} from '@react-navigation/native';
 import SplashScreen from '@/features/auth/splash-screen';
 import {navigationRef} from '@/utils/navigation-utils';
 import CustomerLogin from '@/features/auth/customer-login';
-import DeliveryLogin from '@/features/auth/delivery-login';
 import ProductDashboard from '@/features/dashboard/product-dashboard';
 import DeliveryDashboard from '@/features/delivery/delivery-dashboard';
+import DeliveryLogin from '@/features/auth/delivery-login';
 
 const RootStack = createNativeStackNavigator();
 

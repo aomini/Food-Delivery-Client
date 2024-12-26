@@ -1,4 +1,4 @@
-import {Colors} from '@/utils/Constants';
+import {Colors, Fonts} from '@/utils/Constants';
 import React from 'react';
 import {ActivityIndicator, StyleSheet, TouchableOpacity} from 'react-native';
 import CustomText from './custom-text';
@@ -30,7 +30,10 @@ const CustomButton = ({
       {loading ? (
         <ActivityIndicator color="white" size="small" />
       ) : (
-        <CustomText variant="h6" style={styles.text}>
+        <CustomText
+          variant="h6"
+          fontFamily={Fonts.SemiBold}
+          style={styles.text}>
           {title}
         </CustomText>
       )}
