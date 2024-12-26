@@ -1,5 +1,6 @@
-import {StyleSheet, ViewStyle, SafeAreaView} from 'react-native';
+import {StyleSheet, ViewStyle} from 'react-native';
 import React, {PropsWithChildren} from 'react';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 type Props = {
   style?: ViewStyle;

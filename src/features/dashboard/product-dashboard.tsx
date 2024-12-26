@@ -1,4 +1,4 @@
-import {View, Text, Animated, SafeAreaView, StyleSheet} from 'react-native';
+import {Alert, Animated, StyleSheet, Text} from 'react-native';
 import React, {useEffect, useRef} from 'react';
 import {
   CollapsibleContainer,
@@ -10,6 +10,8 @@ import NoticeAnimation, {
 } from '../../components/dashboard/notice-animation';
 import Visuals from '../../components/dashboard/visuals';
 import AnimatedHeader from '@/components/dashboard/animated-header';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import StickySearchBar from './sticky-search-bar';
 
 const ProductDashboard = () => {
   const noticePosition = useRef(new Animated.Value(NOTICE_HEIGHT)).current;
@@ -55,10 +57,11 @@ const ProductDashboard = () => {
     <NoticeAnimation noticePosition={noticePosition}>
       <>
         <Visuals />
-        <SafeAreaView></SafeAreaView>
+        <SafeAreaView />
         <CollapsibleContainer style={styles.panelContainer}>
           <CollapsibleHeaderContainer containerStyle={styles.transparent}>
             <AnimatedHeader onShowNotice={noticeAnimation} />
+            <StickySearchBar />
           </CollapsibleHeaderContainer>
         </CollapsibleContainer>
       </>
