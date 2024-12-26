@@ -1,4 +1,4 @@
-import {Alert, Animated, StyleSheet, Text} from 'react-native';
+import {Animated, StyleSheet} from 'react-native';
 import React, {useEffect, useRef} from 'react';
 import {
   CollapsibleContainer,
@@ -10,13 +10,11 @@ import NoticeAnimation, {
 } from '../../components/dashboard/notice-animation';
 import Visuals from '../../components/dashboard/visuals';
 import AnimatedHeader from '@/components/dashboard/animated-header';
-import {SafeAreaView} from 'react-native-safe-area-context';
 import StickySearchBar from './sticky-search-bar';
 import CustomerSafeAreaView from '@/components/shared/custom-safe-area-view';
 
 const ProductDashboard = () => {
   const noticePosition = useRef(new Animated.Value(NOTICE_HEIGHT)).current;
-  // const noticePosition = useRef(new Animated.Value(0)).current;
 
   const slideUp = React.useCallback(() => {
     Animated.timing(noticePosition, {
