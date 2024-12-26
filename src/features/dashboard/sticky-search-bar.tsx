@@ -1,4 +1,4 @@
-import {View, Text, StyleSheet, Animated} from 'react-native';
+import {StyleSheet, Animated} from 'react-native';
 import React from 'react';
 import {
   StickyView,

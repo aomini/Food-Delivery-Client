@@ -12,6 +12,7 @@ import Visuals from '../../components/dashboard/visuals';
 import AnimatedHeader from '@/components/dashboard/animated-header';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import StickySearchBar from './sticky-search-bar';
+import CustomerSafeAreaView from '@/components/shared/custom-safe-area-view';
 
 const ProductDashboard = () => {
   const noticePosition = useRef(new Animated.Value(NOTICE_HEIGHT)).current;
@@ -55,16 +56,15 @@ const ProductDashboard = () => {
 
   return (
     <NoticeAnimation noticePosition={noticePosition}>
-      <>
+      <CustomerSafeAreaView>
         <Visuals />
-        <SafeAreaView />
         <CollapsibleContainer style={styles.panelContainer}>
           <CollapsibleHeaderContainer containerStyle={styles.transparent}>
             <AnimatedHeader onShowNotice={noticeAnimation} />
             <StickySearchBar />
           </CollapsibleHeaderContainer>
         </CollapsibleContainer>
-      </>
+      </CustomerSafeAreaView>
     </NoticeAnimation>
   );
 };
