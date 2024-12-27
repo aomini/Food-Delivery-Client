@@ -9,8 +9,7 @@ export const appAxios = axios.create({
 });
 
 appAxios.interceptors.request.use(config => {
-  const accessToken = tokenStorage.getString('accessToken');
-
+  const accessToken = tokenStorage.getString('access_token');
   if (accessToken) {
     config.headers.Authorization = `Bearer ${accessToken}`;
   }
@@ -22,7 +21,7 @@ appAxios.interceptors.response.use(
   async error => {
     if (error.response && error.response.status === 401) {
       try {
-        const accessToken = tokenStorage.getString('accessToken');
+        const accessToken = tokenStorage.getString('access_token');
         if (accessToken) {
           const newAccessToken = await refreshAccessToken(accessToken);
           if (newAccessToken) {

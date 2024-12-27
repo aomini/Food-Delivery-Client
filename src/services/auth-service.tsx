@@ -55,7 +55,7 @@ export const refetchUser = async () => {
     const {setUser} = useAuthStore.getState();
     setUser(user);
   } catch (error: unknown) {
-    console.log('User fetch erro', error);
+    console.log('User fetch error', error);
   }
 };
 
