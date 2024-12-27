@@ -110,7 +110,7 @@ const CustomerLogin = () => {
                   variant="h2"
                   fontFamily={Fonts.Bold}
                   style={{textAlign: 'center'}}>
-                  Welcome to <Text style={{color: 'red'}}>India's</Text> Food
+                  Welcome to <Text style={{color: 'red'}}>Nepal's</Text> Food
                   Delivery
                 </CustomText>
                 <CustomText

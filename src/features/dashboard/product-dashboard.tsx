@@ -3,6 +3,7 @@ import React, {useEffect, useRef} from 'react';
 import {
   CollapsibleContainer,
   CollapsibleHeaderContainer,
+  CollapsibleScrollView,
   withCollapsibleContext,
 } from '@r0b0t3d/react-native-collapsible';
 import NoticeAnimation, {
@@ -12,6 +13,7 @@ import Visuals from '../../components/dashboard/visuals';
 import AnimatedHeader from '@/components/dashboard/animated-header';
 import StickySearchBar from './sticky-search-bar';
 import CustomerSafeAreaView from '@/components/shared/custom-safe-area-view';
+import ContentContainer from '@/components/dashboard/content-container';
 
 const ProductDashboard = () => {
   const noticePosition = useRef(new Animated.Value(NOTICE_HEIGHT)).current;
@@ -61,6 +63,12 @@ const ProductDashboard = () => {
             <AnimatedHeader onShowNotice={noticeAnimation} />
             <StickySearchBar />
           </CollapsibleHeaderContainer>
+          <CollapsibleScrollView
+            nestedScrollEnabled
+            showsVerticalScrollIndicator={false}
+            style={styles.panelContainer}>
+            <ContentContainer />
+          </CollapsibleScrollView>
         </CollapsibleContainer>
       </CustomerSafeAreaView>
     </NoticeAnimation>
