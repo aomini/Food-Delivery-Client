@@ -1,10 +1,4 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  TouchableOpacity,
-} from 'react-native';
+import {View, StyleSheet, ScrollView, TouchableOpacity} from 'react-native';
 import React, {useRef} from 'react';
 import {Category} from '@/types/category.types';
 import Animated from 'react-native-reanimated';
@@ -27,9 +21,9 @@ const Sidebar = ({categories, selectedCategory, onCategoryPress}: Props) => {
         contentContainerStyle={{paddingBottom: 50}}
         showsVerticalScrollIndicator={false}>
         <Animated.View>
-          {categories.map(category => (
+          {categories.map((category, index) => (
             <TouchableOpacity
-              key={category.id}
+              key={index}
               onPress={() => onCategoryPress(category)}
               style={styles.categoryButton}
               activeOpacity={1}>

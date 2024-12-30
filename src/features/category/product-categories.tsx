@@ -17,10 +17,10 @@ const ProductCategories = () => {
     const fetchCategories = async () => {
       try {
         setCategoriesLoading(true);
-        const categories = await getCategories();
-        setCategories(categories);
-        if (categories.length > 0) {
-          setSelectedCategory(categories[0]);
+        const fetchedCategories = await getCategories();
+        setCategories(fetchedCategories);
+        if (fetchedCategories.length > 0) {
+          setSelectedCategory(fetchedCategories[0]);
         }
       } catch (err: unknown) {
         console.log(err);
