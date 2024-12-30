@@ -7,6 +7,7 @@ import CustomerLogin from '@/features/auth/customer-login';
 import ProductDashboard from '@/features/dashboard/product-dashboard';
 import DeliveryDashboard from '@/features/delivery/delivery-dashboard';
 import DeliveryLogin from '@/features/auth/delivery-login';
+import ProductCategories from '@/features/category/product-categories';
 
 const RootStack = createNativeStackNavigator();
 
@@ -43,6 +44,13 @@ const Navigation: React.FC = () => {
           component={DeliveryDashboard}
           options={{
             animation: 'slide_from_left',
+          }}
+        />
+        <RootStack.Screen
+          name="product-categories"
+          component={ProductCategories}
+          options={{
+            animation: 'fade',
           }}
         />
       </RootStack.Navigator>

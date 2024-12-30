@@ -4,6 +4,7 @@ import {adData} from '@/utils/dummyData';
 import Carousel from 'react-native-reanimated-carousel';
 import {screenWidth} from '@/utils/Scaling';
 import {useSharedValue} from 'react-native-reanimated';
+import ScalePress from '../ui/scale-press';
 
 type Props = {
   adData: typeof adData;
@@ -20,25 +21,27 @@ const AdCarousel = ({adData}: Props) => {
       <Carousel
         {...baseOptions}
         loop
-        // snapEnabled
+        snapEnabled
         autoPlay
         autoPlayInterval={3000}
         mode="parallax"
         data={adData}
         scrollAnimationDuration={1000}
         modeConfig={{
-          parallaxScrollingOffset: 0.94,
-          parallaxScrollingScale: 0,
+          parallaxScrollingOffset: 0,
+          parallaxScrollingScale: 0.94,
         }}
         renderItem={({item}) => (
-          <Image source={item} style={styles.imageContainer} />
+          <ScalePress style={styles.imageContainer}>
+            <Image source={item} style={styles.img} />
+          </ScalePress>
         )}
       />
     </View>
   );
 };
 const styles = StyleSheet.create({
-  view: {left: -10, marginVertical: 20},
+  view: {left: -20, marginVertical: 20},
   imageContainer: {
     height: '100%',
     width: '100%',
