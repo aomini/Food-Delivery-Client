@@ -1,8 +1,9 @@
-import {View, Text, StyleSheet, ActivityIndicator, Alert} from 'react-native';
+import {View, StyleSheet, ActivityIndicator, Alert} from 'react-native';
 import React from 'react';
 import {Category, Product} from '@/types/category.types';
 import CustomHeader from '@/components/ui/custom-header';
-import {Colors} from '@/utils/Constants';
+import {getCategories} from '@/services/product-service';
+import Sidebar from './sidebar';
 
 const ProductCategories = () => {
   const [categories, setCategories] = React.useState<Category[]>([]);
@@ -12,17 +13,28 @@ const ProductCategories = () => {
   const [categoriesLoading, setCategoriesLoading] = React.useState(true);
   const [productsLoading, setProductsLoading] = React.useState(false);
 
-  const fetchCategories = async () => {
-    try {
-    } catch (err: unknown) {
-      console.log(err);
-      Alert.alert(
-        'message' in (err as Error)
-          ? (err as Error).message
-          : 'Something went wrong while fetching categories',
-      );
-    }
-  };
+  React.useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        setCategoriesLoading(true);
+        const categories = await getCategories();
+        setCategories(categories);
+        if (categories.length > 0) {
+          setSelectedCategory(categories[0]);
+        }
+      } catch (err: unknown) {
+        console.log(err);
+        Alert.alert(
+          'message' in (err as Error)
+            ? (err as Error).message
+            : 'Something went wrong while fetching categories',
+        );
+      } finally {
+        setCategoriesLoading(false);
+      }
+    };
+    fetchCategories();
+  }, []);
 
   return (
     <View style={styles.container}>

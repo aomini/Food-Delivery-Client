@@ -13,7 +13,13 @@ type Props = {
 
 const CustomHeader = ({title, search = false}: Props) => {
   return (
-    <SafeAreaView>
+    <SafeAreaView
+      edges={{
+        bottom: 'off',
+        top: 'additive',
+        left: 'additive',
+        right: 'additive',
+      }}>
       <View style={styles.flexRow}>
         <Pressable>
           <Icon name="chevron-back" color={Colors.text} size={RFValue(16)} />
