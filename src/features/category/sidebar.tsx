@@ -1,7 +1,12 @@
 import {View, StyleSheet, ScrollView, TouchableOpacity} from 'react-native';
 import React, {useRef} from 'react';
 import {Category} from '@/types/category.types';
-import Animated from 'react-native-reanimated';
+import Animated, {
+  runOnJS,
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
+} from 'react-native-reanimated';
 import CustomText from '@/components/ui/custom-text';
 import {RFValue} from 'react-native-responsive-fontsize';
 import {Colors} from '@/utils/Constants';
@@ -14,12 +19,47 @@ type Props = {
 
 const Sidebar = ({categories, selectedCategory, onCategoryPress}: Props) => {
   const scrollViewRef = useRef<ScrollView>(null);
+  const indicatorPosition = useSharedValue(0);
+  const animatedValues = useSharedValue(0);
+
+  React.useEffect(() => {
+    let targetIndex = -1;
+    categories.forEach((category, index) => {
+      const isSelected = selectedCategory?._id === category._id;
+      animatedValues.value = withTiming(isSelected ? 2 : -15, {duration: 5000});
+      if (isSelected) {
+        targetIndex = index;
+      }
+    });
+
+    if (targetIndex !== -1) {
+      indicatorPosition.value = withTiming(targetIndex * 100, {duration: 500});
+      runOnJS(() => {
+        scrollViewRef.current?.scrollTo({
+          y: targetIndex * 100,
+          animated: true,
+        });
+      });
+    }
+  }, [selectedCategory, categories, animatedValues, indicatorPosition]);
+
+  const indicatorStyle = useAnimatedStyle(() => {
+    return {
+      transform: [{translateY: indicatorPosition.value}],
+    };
+  });
+
+  const animatedStyle = useAnimatedStyle(() => {
+    return {bottom: animatedValues.value};
+  });
+
   return (
     <View style={styles.container}>
       <ScrollView
         ref={scrollViewRef}
         contentContainerStyle={{paddingBottom: 50}}
         showsVerticalScrollIndicator={false}>
+        <Animated.View style={[styles.indicator, indicatorStyle]} />
         <Animated.View>
           {categories.map((category, index) => (
             <TouchableOpacity
@@ -27,10 +67,16 @@ const Sidebar = ({categories, selectedCategory, onCategoryPress}: Props) => {
               onPress={() => onCategoryPress(category)}
               style={styles.categoryButton}
               activeOpacity={1}>
-              <View style={styles.imageContainer}>
+              <View
+                style={[
+                  styles.imageContainer,
+                  selectedCategory?._id === category._id
+                    ? styles.selectedImageCategory
+                    : '',
+                ]}>
                 <Animated.Image
                   source={{uri: category.image}}
-                  style={styles.image}
+                  style={[styles.image, animatedStyle]}
                 />
               </View>
               <CustomText fontSize={RFValue(7)} style={{textAlign: 'center'}}>
