@@ -20,13 +20,17 @@ type Props = {
 const Sidebar = ({categories, selectedCategory, onCategoryPress}: Props) => {
   const scrollViewRef = useRef<ScrollView>(null);
   const indicatorPosition = useSharedValue(0);
-  const animatedValues = useSharedValue(0);
+  const animatedValues = useSharedValue(new Array(categories.length).fill(0));
 
   React.useEffect(() => {
     let targetIndex = -1;
     categories.forEach((category, index) => {
       const isSelected = selectedCategory?._id === category._id;
-      animatedValues.value = withTiming(isSelected ? 2 : -15, {duration: 5000});
+      animatedValues.modify(value => {
+        'worklet';
+        value[index] = withTiming(isSelected ? 2 : -15, {duration: 5000});
+        return value;
+      });
       if (isSelected) {
         targetIndex = index;
       }
@@ -47,10 +51,6 @@ const Sidebar = ({categories, selectedCategory, onCategoryPress}: Props) => {
     return {
       transform: [{translateY: indicatorPosition.value}],
     };
-  });
-
-  const animatedStyle = useAnimatedStyle(() => {
-    return {bottom: animatedValues.value};
   });
 
   return (
@@ -76,7 +76,7 @@ const Sidebar = ({categories, selectedCategory, onCategoryPress}: Props) => {
                 ]}>
                 <Animated.Image
                   source={{uri: category.image}}
-                  style={[styles.image, animatedStyle]}
+                  style={[styles.image, animatedValues.value[index]]}
                 />
               </View>
               <CustomText fontSize={RFValue(7)} style={{textAlign: 'center'}}>

@@ -13,8 +13,6 @@ const ProductCategories = () => {
   const [categoriesLoading, setCategoriesLoading] = React.useState(true);
   const [productsLoading, setProductsLoading] = React.useState(false);
 
-  console.log('Selected Category', selectedCategory);
-
   React.useEffect(() => {
     const fetchCategories = async () => {
       try {
