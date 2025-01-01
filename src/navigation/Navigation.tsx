@@ -8,6 +8,7 @@ import ProductDashboard from '@/features/dashboard/product-dashboard';
 import DeliveryDashboard from '@/features/delivery/delivery-dashboard';
 import DeliveryLogin from '@/features/auth/delivery-login';
 import ProductCategories from '@/features/category/product-categories';
+import Checkout from '@/features/checkout/checkout';
 
 const RootStack = createNativeStackNavigator();
 
@@ -49,6 +50,13 @@ const Navigation: React.FC = () => {
         <RootStack.Screen
           name="product-categories"
           component={ProductCategories}
+          options={{
+            animation: 'fade',
+          }}
+        />
+        <RootStack.Screen
+          name="checkout"
+          component={Checkout}
           options={{
             animation: 'fade',
           }}
