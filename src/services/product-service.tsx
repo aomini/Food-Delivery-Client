@@ -10,6 +10,8 @@ export const getCategories = async () => {
 };
 
 export const getProductsByCategory = async (id: string) => {
-  const response = await axios.get<Product>(`${BASE_URL}/products/${id}`);
+  const response = await axios.get<Product[]>(
+    `${BASE_URL}/products/categories/${id}`,
+  );
   return response.data;
 };

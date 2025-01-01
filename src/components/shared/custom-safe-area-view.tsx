@@ -1,14 +1,20 @@
 import {StyleSheet, ViewStyle} from 'react-native';
 import React, {PropsWithChildren} from 'react';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import {SafeAreaView, SafeAreaViewProps} from 'react-native-safe-area-context';
 
 type Props = {
   style?: ViewStyle;
 };
 
-const CustomerSafeAreaView = ({children, style}: PropsWithChildren<Props>) => {
+const CustomerSafeAreaView = ({
+  children,
+  style,
+  ...props
+}: PropsWithChildren<Props & SafeAreaViewProps>) => {
   return (
-    <SafeAreaView style={[styles.container, style]}>{children}</SafeAreaView>
+    <SafeAreaView {...props} style={[styles.container, style]}>
+      {children}
+    </SafeAreaView>
   );
 };
 

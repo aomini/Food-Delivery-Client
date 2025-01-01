@@ -1,14 +1,14 @@
 export type Product = {
-  _id: number;
+  _id: string;
   name: string;
   image: string;
   price: number;
-  discountPrice: number;
+  discount: number;
   quantity: string;
 };
 
 export type Category = {
-  _id: number;
+  _id: string;
   name: string;
   image: any;
   products?: Array<Product>;

@@ -2,8 +2,10 @@ import {View, StyleSheet, ActivityIndicator, Alert} from 'react-native';
 import React from 'react';
 import {Category, Product} from '@/types/category.types';
 import CustomHeader from '@/components/ui/custom-header';
-import {getCategories} from '@/services/product-service';
+import {getCategories, getProductsByCategory} from '@/services/product-service';
 import Sidebar from './sidebar';
+import ProductList from './product-list';
+import WithCart from '../cart/with-cart';
 
 const ProductCategories = () => {
   const [categories, setCategories] = React.useState<Category[]>([]);
@@ -36,6 +38,26 @@ const ProductCategories = () => {
     fetchCategories();
   }, []);
 
+  React.useEffect(() => {
+    const fetchProducts = async (categoryID: string) => {
+      try {
+        setProductsLoading(true);
+        const fetchedProducts = await getProductsByCategory(categoryID);
+        setProducts(fetchedProducts);
+      } catch (err: unknown) {
+        console.log(err);
+        Alert.alert(
+          'message' in (err as Error)
+            ? (err as Error).message
+            : 'Something went wrong while fetching category products',
+        );
+      } finally {
+        setProductsLoading(false);
+      }
+    };
+    if (selectedCategory?._id) fetchProducts(selectedCategory?._id);
+  }, [selectedCategory?._id]);
+
   return (
     <View style={styles.container}>
       <CustomHeader title={selectedCategory?.name || 'Categories'} search />
@@ -50,6 +72,11 @@ const ProductCategories = () => {
               setSelectedCategory(category)
             }
           />
+        )}
+        {productsLoading ? (
+          <ActivityIndicator size="small" color={'red'} style={styles.center} />
+        ) : (
+          <ProductList data={products} />
         )}
       </View>
     </View>
@@ -73,4 +100,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ProductCategories;
+export default WithCart(ProductCategories);

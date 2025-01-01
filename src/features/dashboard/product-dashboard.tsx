@@ -85,7 +85,7 @@ const ProductDashboard = () => {
 
   return (
     <NoticeAnimation noticePosition={noticePosition}>
-      <CustomerSafeAreaView>
+      <CustomerSafeAreaView edges={['top']}>
         <Visuals />
         <ReAnimated.View style={[styles.backToTop, backToTopStyles]}>
           <TouchableOpacity
