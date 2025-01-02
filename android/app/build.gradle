@@ -51,7 +51,7 @@ react {
     // hermesFlags = ["-O", "-output-source-map"]
 
     project.ext.vectoricons = [
-      iconFontNames: ['MaterialCommunityIcons.ttf', 'MaterialIcon.ttf', 'Ionicons.ttf']
+      iconFontNames: ['MaterialCommunityIcons.ttf', 'MaterialIcons.ttf', 'Ionicons.ttf']
     ]
 
     apply from: file("../../node_modules/react-native-vector-icons/fonts.gradle")

@@ -30,6 +30,7 @@ import {RFValue} from 'react-native-responsive-fontsize';
 import {Fonts} from '@/utils/Constants';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {screenHeight} from '@/utils/Scaling';
+import WithCart from '../cart/with-cart';
 
 const ProductDashboard = () => {
   const {scrollY, expand} = useCollapsibleContext();
@@ -163,4 +164,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withCollapsibleContext(ProductDashboard);
+export default WithCart(withCollapsibleContext(ProductDashboard));

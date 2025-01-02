@@ -5,10 +5,11 @@ import {Colors, Fonts} from '@/utils/Constants';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {RFValue} from 'react-native-responsive-fontsize';
 import CustomText from './custom-text';
+import {back} from '@/utils/navigation-utils';
 
 type Props = {
   title: string;
-  search: boolean;
+  search?: boolean;
 };
 
 const CustomHeader = ({title, search = false}: Props) => {
@@ -21,7 +22,7 @@ const CustomHeader = ({title, search = false}: Props) => {
         right: 'additive',
       }}>
       <View style={styles.flexRow}>
-        <Pressable>
+        <Pressable onPress={() => back()}>
           <Icon name="chevron-back" color={Colors.text} size={RFValue(16)} />
         </Pressable>
         <CustomText

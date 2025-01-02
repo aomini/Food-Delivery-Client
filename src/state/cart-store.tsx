@@ -37,7 +37,7 @@ export const useCartStore = create<CartStore>()(
       erase(id) {
         const cart = get().cart;
         const exists = cart.findIndex(cartItem => cartItem?._id === id);
-        if (exists >= 0) {
+        if (exists >= 0 && cart[exists].count > 1) {
           const updatedCart = [...cart];
           updatedCart[exists] = {
             ...updatedCart[exists],

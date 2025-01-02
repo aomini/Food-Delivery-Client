@@ -15,7 +15,7 @@ type Props = {
     | 'h8'
     | 'h9'
     | 'body';
-  fontFamily?: Fonts;
+  readonly fontFamily?: Fonts;
   fontSize?: number;
   style?: TextStyle | Array<TextStyle>;
   numberOfLines?: number;
