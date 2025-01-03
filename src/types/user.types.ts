@@ -7,4 +7,5 @@ export type User<T = Customer | DeliveryPartner> = {
   phone: number;
   role: T;
   address?: string;
+  name: string;
 };

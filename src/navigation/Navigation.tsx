@@ -9,6 +9,8 @@ import DeliveryDashboard from '@/features/delivery/delivery-dashboard';
 import DeliveryLogin from '@/features/auth/delivery-login';
 import ProductCategories from '@/features/category/product-categories';
 import Checkout from '@/features/checkout/checkout';
+import OrderSuccess from '@/features/checkout/order-success';
+import LiveTracking from '@/features/map/live-tracking';
 
 const RootStack = createNativeStackNavigator();
 
@@ -16,7 +18,7 @@ const Navigation: React.FC = () => {
   return (
     <NavigationContainer ref={navigationRef}>
       <RootStack.Navigator
-        initialRouteName="splash-screen"
+        initialRouteName="order-success"
         screenOptions={{headerShown: false}}>
         <RootStack.Screen name="splash-screen" component={SplashScreen} />
         <RootStack.Screen
@@ -57,6 +59,20 @@ const Navigation: React.FC = () => {
         <RootStack.Screen
           name="checkout"
           component={Checkout}
+          options={{
+            animation: 'fade',
+          }}
+        />
+        <RootStack.Screen
+          name="order-success"
+          component={OrderSuccess}
+          options={{
+            animation: 'fade',
+          }}
+        />
+        <RootStack.Screen
+          name="live-tracking"
+          component={LiveTracking}
           options={{
             animation: 'fade',
           }}

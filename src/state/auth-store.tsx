@@ -2,12 +2,13 @@ import {create} from 'zustand';
 import {persist, createJSONStorage} from 'zustand/middleware';
 import {mmkvStorage} from './storage';
 import {User} from '@/types/user.types';
+import {Order} from '@/types/order.types';
 
 export type AuthStore = {
   user: User | null;
   setUser: (user: any) => void;
-  setCurrentOrder: (order: any) => void;
-  currentOrder: Record<string, any> | null;
+  setCurrentOrder: (order: Order | null) => void;
+  currentOrder: Order | null;
   logout: () => void;
 };
 export const useAuthStore = create<AuthStore>()(
