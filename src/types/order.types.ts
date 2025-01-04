@@ -1,3 +1,4 @@
+import {Product} from './category.types';
 import {Customer, DeliveryPartner, User} from './user.types';
 
 export type OrderPayload = {
@@ -21,7 +22,7 @@ export type Branch = {
 
 export type Item = {
   id: string;
-  item: string;
+  item: Product;
   count: number;
   _id: string;
 };
