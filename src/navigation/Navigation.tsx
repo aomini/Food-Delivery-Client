@@ -18,7 +18,7 @@ const Navigation: React.FC = () => {
   return (
     <NavigationContainer ref={navigationRef}>
       <RootStack.Navigator
-        initialRouteName="order-success"
+        initialRouteName="splash-screen"
         screenOptions={{headerShown: false}}>
         <RootStack.Screen name="splash-screen" component={SplashScreen} />
         <RootStack.Screen

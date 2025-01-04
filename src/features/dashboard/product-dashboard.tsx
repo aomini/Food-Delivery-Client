@@ -31,6 +31,7 @@ import {Fonts} from '@/utils/Constants';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {screenHeight} from '@/utils/Scaling';
 import WithCart from '../cart/with-cart';
+import WithLiveStatus from '../map/with-live-status';
 
 const ProductDashboard = () => {
   const {scrollY, expand} = useCollapsibleContext();
@@ -164,4 +165,6 @@ const styles = StyleSheet.create({
   },
 });
 
-export default WithCart(withCollapsibleContext(ProductDashboard));
+export default WithLiveStatus(
+  WithCart(withCollapsibleContext(ProductDashboard)),
+);

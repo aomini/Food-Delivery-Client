@@ -10,6 +10,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import CustomText from '@/components/ui/custom-text';
 import DeliveryDetails from './delivery-details';
 import OrderSummary from './order-summary';
+import WithLiveStatus from './with-live-status';
 
 const LiveTracking = () => {
   const {currentOrder, setCurrentOrder} = useAuthStore();
@@ -79,7 +80,7 @@ const LiveTracking = () => {
   );
 };
 
-export default LiveTracking;
+export default WithLiveStatus(LiveTracking);
 
 const styles = StyleSheet.create({
   container: {
