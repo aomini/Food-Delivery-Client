@@ -8,6 +8,9 @@ import {screenWidth} from '@/utils/Scaling';
 import {useNavigationState} from '@react-navigation/native';
 import React from 'react';
 import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {io} from 'socket.io-client';
+
+const SOCKET_URL = 'ws://localhost:3000';
 
 const WithLiveStatus = <P extends object>(
   Component: React.ComponentType<P>,
@@ -17,10 +20,37 @@ const WithLiveStatus = <P extends object>(
     const routeName = useNavigationState(
       state => state.routes[state.index]?.name,
     );
-    const fetchOrderDetails = async () => {
+    const fetchOrderDetails = React.useCallback(async () => {
       const data = await getCurrentOrderById(currentOrder?._id);
       if (data) setCurrentOrder(data);
-    };
+    }, [currentOrder?._id, setCurrentOrder]);
+
+    React.useEffect(() => {
+      if (currentOrder) {
+        const socketInstance = io(SOCKET_URL, {
+          transports: ['websocket'],
+          withCredentials: false,
+          reconnectionAttempts: 3,
+        });
+
+        socketInstance.on('connect_error', err => {
+          console.error('Socket was unable to connect', err.message);
+        });
+        socketInstance.emit('joinRoom', currentOrder._id);
+        socketInstance.on('liveTrackingUpdates', () => {
+          fetchOrderDetails();
+          console.log('receiving live updates');
+        });
+        socketInstance.on('orderConfirmed', () => {
+          fetchOrderDetails();
+          console.log('Order confirmation live updates');
+        });
+
+        return () => {
+          socketInstance.disconnect();
+        };
+      }
+    }, [currentOrder, fetchOrderDetails]);
 
     return (
       <View style={styles.container}>
