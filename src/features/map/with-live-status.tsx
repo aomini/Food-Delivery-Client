@@ -39,7 +39,7 @@ const WithLiveStatus = <P extends object>(
         socketInstance.emit('joinRoom', currentOrder._id);
         socketInstance.on('liveTrackingUpdates', () => {
           fetchOrderDetails();
-          console.log('receiving live updates');
+          console.log('🤍🤍🤍🤍🤍🤍🤍🤍 receiving live updates');
         });
         socketInstance.on('orderConfirmed', () => {
           fetchOrderDetails();
