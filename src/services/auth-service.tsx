@@ -5,6 +5,7 @@ import {useAuthStore} from '@/state/auth-store';
 import {User, Customer, DeliveryPartner} from '@/types/user.types';
 import {resetAndNavigate} from '@/utils/navigation-utils';
 import {appAxios} from './api-interceptors';
+import {Order} from '@/types/order.types';
 
 type CustomerLoginResponse<
   U extends 'customer' | 'deliveryPartner' = 'customer',
@@ -14,6 +15,17 @@ type CustomerLoginResponse<
   refreshToken: string;
 } & {
   [K in U]: User<T>;
+};
+
+export const fetchCustomerOrders = async (userID: string) => {
+  try {
+    const response = await appAxios.get<Order[]>(
+      `/orders?customerId=${userID}`,
+    );
+    return response.data;
+  } catch (error: unknown) {
+    console.log('Unable to fetch orders', error);
+  }
 };
 
 export const customerLogin = async (phone: string) => {

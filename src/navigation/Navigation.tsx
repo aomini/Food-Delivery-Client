@@ -11,6 +11,7 @@ import ProductCategories from '@/features/category/product-categories';
 import Checkout from '@/features/checkout/checkout';
 import OrderSuccess from '@/features/checkout/order-success';
 import LiveTracking from '@/features/map/live-tracking';
+import Profile from '@/features/profile/profile';
 
 const RootStack = createNativeStackNavigator();
 
@@ -73,6 +74,13 @@ const Navigation: React.FC = () => {
         <RootStack.Screen
           name="live-tracking"
           component={LiveTracking}
+          options={{
+            animation: 'fade',
+          }}
+        />
+        <RootStack.Screen
+          name="profile"
+          component={Profile}
           options={{
             animation: 'fade',
           }}
