@@ -14,7 +14,7 @@ type Props = {
 
 const ActionButton = ({icon, label, onPress}: Props) => {
   return (
-    <TouchableOpacity onPress={onPress}>
+    <TouchableOpacity style={styles.btn} onPress={onPress}>
       <View style={styles.iconContainer}>
         <Icon name={icon} size={RFValue(14)} />
       </View>

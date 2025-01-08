@@ -1,10 +1,4 @@
-import {
-  StyleSheet,
-  FlatList,
-  View,
-  ListRenderItem,
-  ListRenderItemInfo,
-} from 'react-native';
+import {StyleSheet, FlatList, View, ListRenderItem} from 'react-native';
 import React from 'react';
 import {useAuthStore} from '@/state/auth-store';
 import {useCartStore} from '@/state/cart-store';
@@ -70,8 +64,8 @@ const Profile = () => {
     );
   }, [handleLogout, user?.phone]);
 
-  const renderOrderItem: ListRenderItem<Order> = ({item}) => {
-    return <OrderItem item={item} />;
+  const renderOrderItem: ListRenderItem<Order> = ({item, index}) => {
+    return <OrderItem item={item} index={index} />;
   };
 
   return (
