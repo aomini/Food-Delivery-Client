@@ -101,7 +101,7 @@ const DeliveryLogin = () => {
             }
             placeholder="Password"
             right={false}
-            inputMode="email"
+            inputMode="none"
           />
           <CustomButton
             onPress={handleLogin}

@@ -16,7 +16,7 @@ import OrderItem from './order-item';
 const Profile = () => {
   const [orders, setOrders] = React.useState<Array<Order>>([]);
   const {logout, user} = useAuthStore();
-  const {clearCart} = useCartStore();
+  const {clear} = useCartStore();
 
   const fetchOrder = React.useCallback(async () => {
     if (user?._id) {
@@ -30,12 +30,12 @@ const Profile = () => {
   }, [fetchOrder]);
 
   const handleLogout = React.useCallback(() => {
-    clearCart();
+    clear();
     logout();
     tokenStorage.clearAll();
     storage.clearAll();
-    resetAndNavigate('/customer-login');
-  }, [clearCart, logout]);
+    resetAndNavigate('customer-login');
+  }, [clear, logout]);
 
   const renderHeader = React.useCallback(() => {
     return (
